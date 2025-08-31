@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aniversario</title>
+
+  <!-- Favicon con el corazón -->
+  <link rel="icon" type="image/png" href="Stickers/corazon.png">
+  
+  <link rel="stylesheet" href="contador.css">
+</head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aniversario</title>
+  <link rel="stylesheet" href="contador.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">Aniversario💗</h1>
+    <p class="subtitle">Contador desde el 21 de julio</p>
+    
+    <div class="counter-container">
+      <div class="counter-item">
+        <span class="counter-number" id="days">0</span>
+        <span class="counter-label">Días</span>
+      </div>
+      <div class="counter-item">
+        <span class="counter-number" id="hours">0</span>
+        <span class="counter-label">Horas</span>
+      </div>
+      <div class="counter-item">
+        <span class="counter-number" id="minutes">0</span>
+        <span class="counter-label">Minutos</span>
+      </div>
+      <div class="counter-item">
+        <span class="counter-number" id="seconds">0</span>
+        <span class="counter-label">Segundos</span>
+      </div>
+    </div>
+
+<div class="date-info">
+  <p id="weeks-text"></p>
+  <p id="current-date"></p>
+  <p id="extra-text">Te amo Abigail 💕</p> <!-- ✅ Nuevo texto -->
+</div>
+
+    <!-- Texto dinámico -->
+    <div class="date-info">
+      <p id="weeks-text"></p>
+      <p id="current-date"></p>
+    </div>
+  </div>
+
+  <!-- Stickers decorativos -->
+  <img src="Stickers/Snoopy1.png" class="sticker top-left rotate-left">
+  <img src="Stickers/Snoopy2.png" class="sticker top-right rotate-right">
+  <img src="Stickers/Snoopy4.png" class="sticker bottom-center rotate-left">
+  <img src="Stickers/Snoopy5.png" class="sticker bottom-left">
+  <img src="Stickers/Snoopy6.png" class="sticker bottom-right rotate-left">
+  <img src="Stickers/Snoopy7.png" class="sticker center-left rotate-right">
+  <img src="Stickers/Snoopy8.png" class="sticker center-right rotate-left">
+  <img src="Stickers/Snoopy9.png" class="sticker top-center">
+
+  <!-- Corazones flotantes -->
+  <div class="hearts">
+    <img src="Stickers/corazon.png" class="heart" style="left:10%; animation-delay:0s;">
+    <img src="Stickers/corazon.png" class="heart" style="left:25%; animation-delay:2s; width:20px;">
+    <img src="Stickers/corazon.png" class="heart" style="left:40%; animation-delay:4s;">
+    <img src="Stickers/corazon.png" class="heart" style="left:60%; animation-delay:1s; width:25px;">
+    <img src="Stickers/corazon.png" class="heart" style="left:75%; animation-delay:3s;">
+    <img src="Stickers/corazon.png" class="heart" style="left:90%; animation-delay:5s; width:18px;">
+  </div>
+
+  <script>
+    function updateCounter() {
+      const startDate = new Date('2025-07-21T00:00:00');
+      const now = new Date();
+
+      const difference = now - startDate;
+
+      // Calculo normal días-horas-min-sec
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      document.getElementById('days').textContent = days;
+      document.getElementById('hours').textContent = hours;
+      document.getElementById('minutes').textContent = minutes;
+      document.getElementById('seconds').textContent = seconds;
+
+      // Texto: semanas y días para el próximo mes
+      const monthsPassed = (now.getFullYear() - startDate.getFullYear()) * 12 + (now.getMonth() - startDate.getMonth());
+      const nextMonthDate = new Date(startDate);
+      nextMonthDate.setMonth(startDate.getMonth() + monthsPassed + 1);
+
+      const diffToNextMonth = nextMonthDate - now;
+      const daysToNext = Math.ceil(diffToNextMonth / (1000 * 60 * 60 * 24));
+      const weeks = Math.floor(daysToNext / 7);
+      const restDays = daysToNext % 7;
+
+      document.getElementById("weeks-text").textContent = 
+        `Faltan ${weeks} semanas y ${restDays} días para cumplir un mes más 💞`;
+
+      // Fecha actual
+      const options = {
+        year: 'numeric', month: 'long', day: 'numeric',
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      };
+      document.getElementById('current-date').textContent =
+        'Ahora: ' + now.toLocaleString('es-ES', options);
+    }
+
+    updateCounter();
+    setInterval(updateCounter, 1000);
+  </script>
+  
+</body>
+</html>
