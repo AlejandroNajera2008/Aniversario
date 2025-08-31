@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aniversario</title>
-
-  <!-- Favicon con el corazón -->
-  <link rel="icon" type="image/png" href="Stickers/corazon.png">
-  
-  <link rel="stylesheet" href="contador.css">
-</head>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aniversario</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="Stickers/corazon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Aniversario 💕">
+  <meta property="og:description" content="Un contador especial, lleno de amor y Snoopy 💖">
+  <meta property="og:image" content="https://alejandronajera2008.github.io/Aniversario/Stickers/fondo.jpeg">
+  <meta property="og:url" content="https://alejandronajera2008.github.io/Aniversario/">
+  <meta property="og:type" content="website">
+
+  <!-- Para Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Aniversario 💕">
+  <meta name="twitter:description" content="Un contador especial, lleno de amor y Snoopy 💖">
+  <meta name="twitter:image" content="https://alejandronajera2008.github.io/Aniversario/Stickers/fondo.jpeg">
+
   <link rel="stylesheet" href="contador.css">
 </head>
 <body>
@@ -22,34 +29,17 @@
     <p class="subtitle">Contador desde el 21 de julio</p>
     
     <div class="counter-container">
-      <div class="counter-item">
-        <span class="counter-number" id="days">0</span>
-        <span class="counter-label">Días</span>
-      </div>
-      <div class="counter-item">
-        <span class="counter-number" id="hours">0</span>
-        <span class="counter-label">Horas</span>
-      </div>
-      <div class="counter-item">
-        <span class="counter-number" id="minutes">0</span>
-        <span class="counter-label">Minutos</span>
-      </div>
-      <div class="counter-item">
-        <span class="counter-number" id="seconds">0</span>
-        <span class="counter-label">Segundos</span>
-      </div>
+      <div class="counter-item"><span class="counter-number" id="days">0</span><span class="counter-label">Días</span></div>
+      <div class="counter-item"><span class="counter-number" id="hours">0</span><span class="counter-label">Horas</span></div>
+      <div class="counter-item"><span class="counter-number" id="minutes">0</span><span class="counter-label">Minutos</span></div>
+      <div class="counter-item"><span class="counter-number" id="seconds">0</span><span class="counter-label">Segundos</span></div>
     </div>
-
-<div class="date-info">
-  <p id="weeks-text"></p>
-  <p id="current-date"></p>
-  <p id="extra-text">Te amo Abigail 💕</p> <!-- ✅ Nuevo texto -->
-</div>
 
     <!-- Texto dinámico -->
     <div class="date-info">
       <p id="weeks-text"></p>
       <p id="current-date"></p>
+      <p id="extra-text">Te amo Abigail 💕</p>
     </div>
   </div>
 
@@ -77,10 +67,8 @@
     function updateCounter() {
       const startDate = new Date('2025-07-21T00:00:00');
       const now = new Date();
-
       const difference = now - startDate;
 
-      // Calculo normal días-horas-min-sec
       const days = Math.floor(difference / (1000 * 60 * 60 * 24));
       const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
@@ -91,7 +79,7 @@
       document.getElementById('minutes').textContent = minutes;
       document.getElementById('seconds').textContent = seconds;
 
-      // Texto: semanas y días para el próximo mes
+      // Texto dinámico semanas/días
       const monthsPassed = (now.getFullYear() - startDate.getFullYear()) * 12 + (now.getMonth() - startDate.getMonth());
       const nextMonthDate = new Date(startDate);
       nextMonthDate.setMonth(startDate.getMonth() + monthsPassed + 1);
@@ -105,10 +93,8 @@
         `Faltan ${weeks} semanas y ${restDays} días para cumplir un mes más 💞`;
 
       // Fecha actual
-      const options = {
-        year: 'numeric', month: 'long', day: 'numeric',
-        hour: '2-digit', minute: '2-digit', second: '2-digit'
-      };
+      const options = { year: 'numeric', month: 'long', day: 'numeric',
+                        hour: '2-digit', minute: '2-digit', second: '2-digit'};
       document.getElementById('current-date').textContent =
         'Ahora: ' + now.toLocaleString('es-ES', options);
     }
@@ -116,6 +102,5 @@
     updateCounter();
     setInterval(updateCounter, 1000);
   </script>
-  
 </body>
 </html>
