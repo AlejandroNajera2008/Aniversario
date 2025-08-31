@@ -28,7 +28,9 @@
     <h1 class="title">Aniversario💗</h1>
     <p class="subtitle">Contador desde el 21 de junio</p>
     
+    <!-- Contador actualizado -->
     <div class="counter-container">
+      <div class="counter-item"><span class="counter-number" id="months">0</span><span class="counter-label">Meses</span></div>
       <div class="counter-item"><span class="counter-number" id="days">0</span><span class="counter-label">Días</span></div>
       <div class="counter-item"><span class="counter-number" id="hours">0</span><span class="counter-label">Horas</span></div>
       <div class="counter-item"><span class="counter-number" id="minutes">0</span><span class="counter-label">Minutos</span></div>
@@ -67,20 +69,40 @@
 function updateCounter() {
   const startDate = new Date('2025-06-21T00:00:00'); 
   const now = new Date();
-  const difference = now - startDate;
 
-  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+  // ===============================
+  // Cálculo de MESES y DÍAS
+  // ===============================
+  let monthsPassed = (now.getFullYear() - startDate.getFullYear()) * 12 + 
+                     (now.getMonth() - startDate.getMonth());
 
+  let lastMonthDate = new Date(startDate);
+  lastMonthDate.setMonth(startDate.getMonth() + monthsPassed);
+
+  // Si aún no ha llegado el día 21 de este mes → retrocedemos un mes
+  if (now.getDate() < startDate.getDate()) {
+    monthsPassed--;
+    lastMonthDate.setMonth(lastMonthDate.getMonth() - 1);
+  }
+
+  const diffFromLastMonth = now - lastMonthDate;
+  const days = Math.floor(diffFromLastMonth / (1000 * 60 * 60 * 24));
+
+  // Horas, minutos y segundos actuales
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
+
+  // Mostrar en el contador
+  document.getElementById('months').textContent = monthsPassed;
   document.getElementById('days').textContent = days;
   document.getElementById('hours').textContent = hours;
   document.getElementById('minutes').textContent = minutes;
   document.getElementById('seconds').textContent = seconds;
 
+  // ===============================
   // Texto dinámico semanas/días
-  const monthsPassed = (now.getFullYear() - startDate.getFullYear()) * 12 + (now.getMonth() - startDate.getMonth());
+  // ===============================
   const nextMonthDate = new Date(startDate);
   nextMonthDate.setMonth(startDate.getMonth() + monthsPassed + 1);
 
@@ -102,7 +124,9 @@ function updateCounter() {
 
   document.getElementById("weeks-text").textContent = text;
 
-  // Fecha actual
+  // ===============================
+  // Fecha y hora actual
+  // ===============================
   const options = { year: 'numeric', month: 'long', day: 'numeric',
                     hour: '2-digit', minute: '2-digit', second: '2-digit'};
   document.getElementById('current-date').textContent =
@@ -114,3 +138,4 @@ setInterval(updateCounter, 1000);
 </script>
 </body>
 </html>
+
